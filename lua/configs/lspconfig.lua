@@ -6,7 +6,7 @@ local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- LSP servers list for setup with default config
-local servers = { "html", "cssls", "gopls", "jdtls" }
+local servers = { "html", "cssls", "gopls","tailwindcss",}
 
 -- Setup servers with default settings from NvChad
 for _, lsp in ipairs(servers) do
@@ -41,6 +41,24 @@ lspconfig.ast_grep.setup {
     enable = true,
     patterns = {
       js = { "console.log", "debugger" }, -- Highlight these patterns
+    },
+  },
+}
+
+-- Custom setup for `tailwindcss`
+lspconfig.tailwindcss.setup {
+  on_attach = nvlsp.on_attach,
+  capabilities = nvlsp.capabilities,
+  filetypes = { "javascriptreact", "typescriptreact", "html", "css", "scss" },
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          "tw`([^`]*)", -- Example: tw`text-red-500`
+          'tw="([^"]*)', -- Example: tw="text-red-500"
+          "tw\\.\\w+`([^`]*)", -- Example: tw.sm`text-red-500`
+        },
+      },
     },
   },
 }
