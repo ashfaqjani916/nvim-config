@@ -6,7 +6,7 @@ local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- LSP servers list for setup with default config
-local servers = { "html", "cssls", "gopls","tailwindcss",}
+local servers = { "html", "cssls", "gopls","tailwindcss","ts_ls"}
 
 -- Setup servers with default settings from NvChad
 for _, lsp in ipairs(servers) do
@@ -61,4 +61,16 @@ lspconfig.tailwindcss.setup {
       },
     },
   },
+}
+
+
+lspconfig.ts_ls.setup {
+  on_attach = function(client, bufnr)
+    -- Disable tsserver's built-in formatting to use a formatter like Prettier
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+
+    nvlsp.on_attach(client, bufnr)
+  end,
+  capabilities = nvlsp.capabilities,
 }

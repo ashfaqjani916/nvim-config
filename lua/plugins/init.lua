@@ -1,3 +1,4 @@
+
 return {
   {
     "stevearc/conform.nvim",
@@ -13,13 +14,34 @@ return {
     end,
   },
 
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim", "lua", "vimdoc",
+        "html", "css","javascript","typescript","tsx","go","java"
+      },
+    },
+  },
+
+
+{
+  "windwp/nvim-ts-autotag",
+  config = function()
+    require("nvim-ts-autotag").setup {
+      filetypes = {
+        "html",
+        "xml",
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact",
+        "vue",
+        "svelte",
+        "markdown",
+      },
+    }
+  end,
+  event = "InsertEnter", -- Load on entering insert mode
+}
 }
