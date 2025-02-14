@@ -1,6 +1,12 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 
+-- relative line numbers 
+vim.opt.relativenumber = true
+vim.opt.number = true -- Keep the absolute number on the current line
+
+
+vim.opt.mouse = "nvi"  -- Enable only for normal, visual, and insert mode
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
@@ -35,3 +41,7 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+-- Enable system clipboard support
+vim.opt.clipboard = "unnamedplus"
+
