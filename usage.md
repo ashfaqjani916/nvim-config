@@ -57,9 +57,13 @@ Matches Zed: project panel right, outline panel left, terminal dock bottom. The 
 
 ### Debugger (VS Code keys + `␣ d`)
 
+Works like Zed's debugger and reads the same `.zed/debug.json`. Breakpoints are saved across restarts. Full guide: [debugging.md](debugging.md).
+
+
 | Keys | Action |
 |---|---|
-| `F5` | Start / continue (Rust: pick a target) |
+| `F4` | Start a new session from the picker (Zed: `debugger: start`) |
+| `F5` | Start (picker: `.zed/debug.json`, `.vscode/launch.json`, built-ins) / continue |
 | `Shift-F5` | Stop |
 | `F9` | Toggle breakpoint |
 | `F10` | Step over |
@@ -67,7 +71,8 @@ Matches Zed: project panel right, outline panel left, terminal dock bottom. The 
 | `Shift-F11` | Step out |
 | `␣ d b` | Toggle breakpoint |
 | `␣ d B` | Conditional breakpoint |
-| `␣ d L` | Logpoint (prints, doesn't stop) |
+| `␣ d h` | Hit-count breakpoint (stop after N hits) |
+| `␣ d L` | Logpoint (prints `{expr}` values, doesn't stop) |
 | `␣ d c` | Continue / start |
 | `␣ d o` / `i` / `O` | Step over / into / out |
 | `␣ d C` | Run to cursor |
@@ -160,6 +165,7 @@ Each row was checked headless against a small sample project that has one passin
 
 - **Python:** pytest must be installed in the project's environment (`uv add --dev pytest`). The test runner and debugger use `./.venv`, `./venv` or `$VIRTUAL_ENV` automatically.
 - **Rust:** the first `F5` compiles a debug build. Rust debugging was verified with Neovim opened at the crate root, which is the normal way to work.
+- **Debugging:** see [debugging.md](debugging.md) for breakpoints, per-language setup and `.zed/debug.json`.
 - **Go:** `F5` asks which configuration to use: file, package or test. To debug one test, put the cursor in it and press `␣ r d`.
 - Mason installs language servers and debuggers on startup. Run `:Mason` to see them.
 - Indentation is 2 spaces by default, as in Zed. Go keeps tabs and Python/Rust keep 4 spaces, set by their filetype plugins.
@@ -178,7 +184,8 @@ Each row was checked headless against a small sample project that has one passin
 |---|---|
 | `colors/cinder-peak.lua` | Rex's Cinder Peak palette (from the app's themes.json) on mini.base16, background a shade darker than Rex. Embedded terminals use Rex's 16 ANSI colours. |
 | `init.lua` | Nerd Font on, 2-space default, the colorscheme, gopls / basedpyright / ruff servers, rustaceanvim, Mason tools (goimports, rust-analyzer, delve, debugpy, codelldb), formatters, treesitter parsers, docs popup in completion. Debug, indent guides and autopairs switched on. |
-| `lua/kickstart/plugins/debug.lua` | Debugger for Go, Python and Rust, VS Code F-keys, virtual text, breakpoint signs. |
+| `lua/kickstart/plugins/debug.lua` | Debugger for Go, Python and Rust with Zed's defaults (line stepping, saved breakpoints, panel docked bottom), VS Code F-keys, inline values. |
+| `lua/custom/zed_debug.lua` | Reads Zed's `.zed/debug.json`: adapter names, `$ZED_*` variables, `build`, `tcp_connection`. Checked by `tests/zed_debug_test.lua`. |
 | `lua/kickstart/plugins/neo-tree.lua` | Tree docked right, hidden and gitignored files shown, file watcher. |
 | `lua/custom/plugins/test.lua` | neotest with Go, pytest and Rust adapters. |
 | `lua/custom/plugins/terminal.lua` | Bottom terminals, run project and lazygit, using snacks.nvim. |
