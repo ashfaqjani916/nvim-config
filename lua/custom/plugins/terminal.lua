@@ -42,6 +42,10 @@ end
 for _, key in ipairs { '<C-/>', '<C-_>', '<C-`>' } do
   vim.keymap.set({ 'n', 't' }, key, toggle_term, { desc = 'Toggle bottom terminal ([count] picks which)' })
 end
+-- Leave a terminal for another window with Alt+hjkl (same as normal mode; Ctrl+hjkl stay with the shell)
+for _, dir in ipairs { 'h', 'j', 'k', 'l' } do
+  vim.keymap.set('t', '<M-' .. dir .. '>', '<C-\\><C-n><C-w>' .. dir, { desc = 'Move focus ' .. dir .. ' from terminal' })
+end
 vim.keymap.set('n', '<leader>tt', toggle_term, { desc = '[T]oggle [T]erminal ([count] picks which)' })
 vim.keymap.set('n', '<leader>tn', new_term, { desc = '[T]erminal: [N]ew' })
 vim.keymap.set('n', '<leader>rr', run_project, { desc = '[R]un project / file' })

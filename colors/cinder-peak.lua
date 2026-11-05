@@ -5,7 +5,7 @@ vim.g.colors_name = nil
 
 require('mini.base16').setup {
   palette = {
-    base00 = '#151011', -- background (canvas)
+    base00 = '#0e0a0b', -- background: a shade darker than Rex's canvas (#151011)
     base01 = '#1c1718', -- statusline, cursorline, floats (surfaceSubtle)
     base02 = '#46252a', -- selection
     base03 = '#746866', -- comments, line numbers (contentTertiary)
@@ -34,7 +34,7 @@ for i, color in ipairs(ansi) do
   vim.g['terminal_color_' .. (i - 1)] = color
 end
 
-vim.api.nvim_set_hl(0, 'Cursor', { fg = '#151011', bg = '#ff5021' })
+vim.api.nvim_set_hl(0, 'Cursor', { fg = '#0e0a0b', bg = '#ff5021' })
 vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#383030' })
 
 vim.g.colors_name = 'cinder-peak'
